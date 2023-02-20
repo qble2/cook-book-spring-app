@@ -1,0 +1,37 @@
+# Cook Book Spring
+
+A Java [Spring Boot](https://spring.io/projects/spring-boot) REST API exchanging data using the JSON format.
+
+The persistence layer is managed by [Spring Data JPA](https://spring.io/projects/spring-data-jpa) and [Hibernate](https://hibernate.org).  
+The JSON serialization/deserialization is handled by [Jackson](https://github.com/FasterXML/jackson).  
+
+The application security is managed by Spring Security using a JWT-based authentication process.
+
+[Lombok](https://projectlombok.org) is used to reduce boilerplate code.  
+The mapping between Java bean types is done using [MapStruct](https://mapstruct.org).  
+The project's build is managed by [Maven](https://maven.apache.org).  
+
+## Features:
+The application allows the user to:
+- Sign up
+- Sign in
+- Browse recipes
+- Filter recipes
+- Create recipes
+- Update recipes
+- Rate recipes
+
+## Built with:
+- Java 17
+- [Spring Boot 2.7.8](https://spring.io/projects/spring-boot)
+- [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
+- [Java-JWT](https://github.com/auth0/java-jwt)
+- [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+- [Hibernate](https://hibernate.org)
+- [Jackson](https://github.com/FasterXML/jackson)
+- [Lombok](https://projectlombok.org)
+- [MapStruct](https://mapstruct.org)
+- [Maven](https://maven.apache.org)
+- [Google JIB Maven Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin)
+
+Frontend can be found [here.](https://github.com/qble2/cook-book-angular-app)
