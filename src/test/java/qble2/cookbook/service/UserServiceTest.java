@@ -1,4 +1,4 @@
-package cookbook.service;
+package qble2.cookbook.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

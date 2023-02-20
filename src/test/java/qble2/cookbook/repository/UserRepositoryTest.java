@@ -1,4 +1,4 @@
-package cookbook.repository;
+package qble2.cookbook.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;

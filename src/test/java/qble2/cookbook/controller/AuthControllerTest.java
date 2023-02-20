@@ -1,4 +1,4 @@
-package cookbook.controller;
+package qble2.cookbook.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -28,13 +28,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.auth.AuthController;
 import qble2.cookbook.exception.ExceptionsControllerAdvice;
 import qble2.cookbook.security.JwtUtils;
 import qble2.cookbook.user.UserRepository;
 import qble2.cookbook.user.UserService;
 import qble2.cookbook.user.dto.UserDto;
+import qble2.cookbook.utils.TestUtils;
 
 @WebMvcTest(controllers = AuthController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)

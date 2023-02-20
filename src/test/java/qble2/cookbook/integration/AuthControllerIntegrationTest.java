@@ -1,4 +1,4 @@
-package cookbook.integration;
+package qble2.cookbook.integration;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -24,10 +24,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.user.UserRepository;
 import qble2.cookbook.user.dto.UserDto;
 import qble2.cookbook.user.model.User;
+import qble2.cookbook.utils.TestUtils;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

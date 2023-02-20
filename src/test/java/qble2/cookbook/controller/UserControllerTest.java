@@ -1,4 +1,4 @@
-package cookbook.controller;
+package qble2.cookbook.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,12 +25,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.exception.ResourceNotFoundException;
 import qble2.cookbook.user.UserController;
 import qble2.cookbook.user.UserService;
 import qble2.cookbook.user.dto.UserDto;
 import qble2.cookbook.user.dto.UsersPageDto;
+import qble2.cookbook.utils.TestUtils;
 
 @WebMvcTest(controllers = UserController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)

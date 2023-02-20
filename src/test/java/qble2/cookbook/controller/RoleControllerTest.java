@@ -1,7 +1,6 @@
-package cookbook.controller;
+package qble2.cookbook.controller;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,19 +26,20 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.exception.ExceptionsControllerAdvice;
 import qble2.cookbook.exception.ResourceNotFoundException;
-import qble2.cookbook.ingredient.IngredientController;
-import qble2.cookbook.ingredient.IngredientRepository;
-import qble2.cookbook.ingredient.IngredientService;
-import qble2.cookbook.ingredient.dto.IngredientDto;
+import qble2.cookbook.role.RoleController;
+import qble2.cookbook.role.RoleRepository;
+import qble2.cookbook.role.RoleService;
+import qble2.cookbook.role.dto.RoleDto;
+import qble2.cookbook.role.model.RoleEnum;
+import qble2.cookbook.utils.TestUtils;
 
-@WebMvcTest(controllers = IngredientController.class,
+@WebMvcTest(controllers = RoleController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
 @TestPropertySource(locations = "classpath:ValidationMessages.properties")
-class IngredientControllerTest {
+class RoleControllerTest {
 
   @Autowired
   private Environment env;
@@ -51,19 +51,19 @@ class IngredientControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private IngredientService ingredientService;
+  private RoleService roleService;
 
   @MockBean
-  private IngredientRepository ingredientRepository; // called during Validation
+  private RoleRepository roleRepository; // called during Validation
 
   /////
   ///// NOMINAL CASES
   /////
 
   @Test
-  void given_none_getIngredients_willReturnIngredients() throws Exception {
+  void given_none_getRoles_willReturnRoles() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when
@@ -77,57 +77,53 @@ class IngredientControllerTest {
   }
 
   @Test
-  void given_ingredientExists_getIngredient_willReturnIngredient() throws Exception {
+  void given_roleExists_getRole_willReturnRole() throws Exception {
     // given
-    IngredientDto existingIngredient = TestUtils.createIngredient(UUID.randomUUID());
-    URI uri =
-        TestUtils.toUri(TestUtils.INGREDIENT_PATH + "/{ingredientId}", existingIngredient.getId());
+    RoleDto existingRole = TestUtils.createRole(UUID.randomUUID(), RoleEnum.ROLE_USER);
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH + "/{roleId}", existingRole.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
-    given(ingredientService.getIngredient(any())).willReturn(existingIngredient);
+    given(roleService.getRole(any())).willReturn(existingRole);
 
     // when
     // then
     // String selfLink = urlTemplate;
 
-    final ResultActions resultActions =
-        this.mockMvc.perform(get(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)).andDo(print())
-            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
-            .andExpect(status().isOk())
+    this.mockMvc.perform(get(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)).andDo(print())
+        .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
+        .andExpect(status().isOk()) //
+        .andExpect(jsonPath("$.id", is(existingRole.getId().toString())))
+        .andExpect(jsonPath("$.name", is(existingRole.getName().toString())))
     // TODO BKE links created with MapStruct @AfterMapping are not generated in testing context
     // .andExpect(jsonPath("$._links.self.href", is(selfLink)))
     ;
-
-    verifyResponse(resultActions, existingIngredient);
   }
 
   @Test
-  void given_validIngredient_createIngredient_willReturnCreatedIngredient() throws Exception {
+  void given_validRole_createRole_willReturnCreatedRole() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
-    IngredientDto ingredientPayload = TestUtils.createIngredient(null);
-    IngredientDto createdIngredient =
-        IngredientDto.builder().id(UUID.randomUUID()).name(ingredientPayload.getName()).build();
-    given(ingredientService.createIngredient(any())).willReturn(createdIngredient);
+    RoleDto rolePayload = TestUtils.createRole(null, RoleEnum.ROLE_USER);
+    RoleDto createdRole = TestUtils.createRoleFrom(UUID.randomUUID(), rolePayload);
+    given(roleService.createRole(any())).willReturn(createdRole);
 
     // when
     // then
-    // String selfLink = TestUtils
-    // .toHttpUriString(TestUtils.INGREDIENT_PATH + "/{ingredientId}",
-    // createdIngredient.getId()).toString();
+    // String selfLink =
+    // TestUtils.toHttpUriString(TestUtils.ROLE_PATH + "/{roleId}", createdRole.getId()).toString();
 
-    final ResultActions resultActions = this.mockMvc
+    this.mockMvc
         .perform(post(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(ingredientPayload)))
+            .content(objectMapper.writeValueAsString(rolePayload)))
         .andDo(print())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
         .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.id", is(createdRole.getId().toString())))
+        .andExpect(jsonPath("$.name", is(createdRole.getName().toString())))
     // TODO BKE links created with MapStruct @AfterMapping are not generated in testing context
     // .andExpect(jsonPath("$._links.self.href", is(selfLink)))
     ;
-
-    verifyResponse(resultActions, ingredientPayload);
   }
 
   /////
@@ -135,12 +131,12 @@ class IngredientControllerTest {
   /////
 
   @Test
-  void given_ingredientDoesNotExist_getIngredient_willReturnResourceNotFound() throws Exception {
+  void given_roleDoesNotExist_getRole_willReturnResourceNotFound() throws Exception {
     // given
-    UUID unknownIngredientId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH + "/{ingredientId}", unknownIngredientId);
+    UUID unknownRoleId = UUID.randomUUID();
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH + "/{roleId}", unknownRoleId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
-    given(ingredientService.getIngredient(any())).willThrow(new ResourceNotFoundException());
+    given(roleService.getRole(any())).willThrow(new ResourceNotFoundException());
 
     // when
     // then
@@ -153,55 +149,50 @@ class IngredientControllerTest {
   }
 
   @Test
-  void given_InvalidIdProperty_createIngredient_willReturnBadRequest() throws Exception {
+  void given_invalidIdProperty_createRole_willReturnBadRequest() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    RoleDto rolePayload = TestUtils.createRole(UUID.randomUUID(), RoleEnum.ROLE_USER);
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
-    IngredientDto ingredientPayload = TestUtils.createIngredient(UUID.randomUUID());
 
     // when
     // then
     final ResultActions resultActions = this.mockMvc
         .perform(post(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(ingredientPayload)))
+            .content(objectMapper.writeValueAsString(rolePayload)))
         .andDo(print())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
 
     TestUtils.verifyResponseError(resultActions, uri, status().isBadRequest(),
         HttpStatus.BAD_REQUEST, ExceptionsControllerAdvice.CONSTRAINT_VIOLATION_MESSAGE,
-        env.getProperty("ingredient.id.OnCreate.Null.message"));
+        env.getProperty("role.id.OnCreate.Null.message"));
   }
 
   @Test
-  void given_nameAlreadyTaken_createIngredient_willReturnBadRequest() throws Exception {
+  void given_nameAlreadyExists_createRole_willReturnBadRequest() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
-    IngredientDto ingredientPayload = TestUtils.createIngredient(null);
-    given(ingredientRepository.existsByName(any())).willReturn(true);
+    RoleDto rolePayload = TestUtils.createRole(null, RoleEnum.ROLE_USER);
+    given(roleRepository.existsByName(rolePayload.getName())).willReturn(true);
 
     // when
     // then
     final ResultActions resultActions = this.mockMvc
         .perform(post(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(ingredientPayload)))
+            .content(objectMapper.writeValueAsString(rolePayload)))
         .andDo(print())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
 
     TestUtils.verifyResponseError(resultActions, uri, status().isBadRequest(),
         HttpStatus.BAD_REQUEST, ExceptionsControllerAdvice.CONSTRAINT_VIOLATION_MESSAGE,
-        env.getProperty("ingredient.name.Taken.message"));
+        env.getProperty("role.name.Taken.message"));
   }
 
   /////
   /////
   /////
 
-  private void verifyResponse(final ResultActions resultActions, IngredientDto ingredient)
-      throws Exception {
-    resultActions.andExpect(jsonPath("$.id", notNullValue()))
-        .andExpect(jsonPath("$.name", is(ingredient.getName())));
-  }
 }

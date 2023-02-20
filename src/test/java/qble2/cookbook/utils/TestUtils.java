@@ -1,4 +1,4 @@
-package cookbook.utils;
+package qble2.cookbook.utils;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;

@@ -1,4 +1,4 @@
-package cookbook.integration;
+package qble2.cookbook.integration;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -24,7 +24,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.ingredient.IngredientService;
 import qble2.cookbook.ingredient.dto.IngredientDto;
 import qble2.cookbook.ingredient.model.UnitOfMeasureEnum;
@@ -32,6 +31,7 @@ import qble2.cookbook.recipe.RecipeService;
 import qble2.cookbook.recipe.dto.RecipeDto;
 import qble2.cookbook.user.UserService;
 import qble2.cookbook.user.dto.UserDto;
+import qble2.cookbook.utils.TestUtils;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

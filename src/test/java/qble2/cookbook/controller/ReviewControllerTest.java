@@ -1,4 +1,4 @@
-package cookbook.controller;
+package qble2.cookbook.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,7 +28,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cookbook.utils.TestUtils;
 import qble2.cookbook.exception.ExceptionsControllerAdvice;
 import qble2.cookbook.exception.ResourceNotFoundException;
 import qble2.cookbook.recipe.RecipeService;
@@ -37,6 +36,7 @@ import qble2.cookbook.review.ReviewRepository;
 import qble2.cookbook.review.ReviewService;
 import qble2.cookbook.review.dto.ReviewDto;
 import qble2.cookbook.user.UserService;
+import qble2.cookbook.utils.TestUtils;
 
 @WebMvcTest(controllers = ReviewController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
