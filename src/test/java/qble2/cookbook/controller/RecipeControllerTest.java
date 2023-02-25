@@ -70,7 +70,7 @@ class RecipeControllerTest {
   @Test
   void given_none_getRecipes_willReturnRecipes() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     int page = 0;
     int size = 5;
@@ -81,7 +81,7 @@ class RecipeControllerTest {
 
     // when
     // then
-    String selfLink = TestUtils.toHttpUriString(TestUtils.RECIPE_PATH,
+    String selfLink = TestUtils.toHttpUriString(TestUtils.RECIPES_PATH,
         new TreeMap<>(Map.of("page", page, "size", size)));
 
     this.mockMvc.perform(get(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)).andDo(print())
@@ -95,7 +95,7 @@ class RecipeControllerTest {
     // given
     UUID existingRecipeId = UUID.randomUUID();
     RecipeDto existingRecipe = TestUtils.createRecipe(existingRecipeId);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.getRecipe(any())).willReturn(existingRecipe);
 
@@ -113,7 +113,7 @@ class RecipeControllerTest {
   void given_recipeExists_getRecipeTags_willReturnStatusOk() throws Exception {
     UUID existingRecipeId = UUID.randomUUID();
     RecipeDto existingRecipe = TestUtils.createRecipe(existingRecipeId);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}/tags", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}/tags", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.getRecipe(any())).willReturn(existingRecipe);
 
@@ -133,7 +133,7 @@ class RecipeControllerTest {
     // given
     UUID existingRecipeId = UUID.randomUUID();
     RecipeDto existingRecipe = TestUtils.createRecipe(existingRecipeId);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}/ingredients", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}/ingredients", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.getRecipe(any())).willReturn(existingRecipe);
 
@@ -153,7 +153,7 @@ class RecipeControllerTest {
     // given
     UUID existingRecipeId = UUID.randomUUID();
     RecipeDto existingRecipe = TestUtils.createRecipe(existingRecipeId);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}/instructions", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}/instructions", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.getRecipe(any())).willReturn(existingRecipe);
 
@@ -172,7 +172,7 @@ class RecipeControllerTest {
     // given
     RecipeDto recipePayload = TestUtils.createRecipe(null);
     RecipeDto createdRecipe = TestUtils.createRecipeFrom(UUID.randomUUID(), recipePayload);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.createRecipe(any(), any())).willReturn(createdRecipe);
 
@@ -215,7 +215,7 @@ class RecipeControllerTest {
     UUID existingRecipeId = UUID.randomUUID();
     RecipeDto recipePayload = TestUtils.createRecipe(existingRecipeId);
     RecipeDto updatedRecipe = TestUtils.createRecipeFrom(existingRecipeId, recipePayload);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.updateRecipe(any(), any(), any())).willReturn(updatedRecipe);
 
@@ -259,7 +259,7 @@ class RecipeControllerTest {
   void given_recipeDoesNotExist_getRecipe_willReturnResourceNotFound() throws Exception {
     // given
     UUID unknownRecipeId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}", unknownRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}", unknownRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.getRecipe(any())).willThrow(new ResourceNotFoundException());
 
@@ -277,7 +277,7 @@ class RecipeControllerTest {
   void given_userDoesNotExist_createRecipe_willReturnResourceNotFound() throws Exception {
     // given
     RecipeDto recipePayload = TestUtils.createRecipe(null);
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeService.createRecipe(any(), any())).willThrow(new ResourceNotFoundException());
 
@@ -299,7 +299,7 @@ class RecipeControllerTest {
       throws Exception {
     // given
     RecipeDto recipePayload = TestUtils.createRecipe(UUID.randomUUID());
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when
@@ -323,7 +323,7 @@ class RecipeControllerTest {
     RecipeDto recipePayload = TestUtils.createRecipe(null);
     Recipe existingRecipe =
         Recipe.builder().id(UUID.randomUUID()).name(recipePayload.getName()).build();
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(recipeRepository.findByName(recipePayload.getName())).willReturn(existingRecipe);
 

@@ -30,11 +30,11 @@ public class TestUtils {
 
   public static final String HOST = "localhost";
   public static final String AUTH_PATH = "/api/auth";
-  public static final String ROLE_PATH = "/api/roles";
-  public static final String USER_PATH = "/api/users";
-  public static final String RECIPE_PATH = "/api/recipes";
-  public static final String INGREDIENT_PATH = "/api/ingredients";
-  public static final String REVIEW_PATH = "/api/reviews";
+  public static final String ROLES_PATH = "/api/roles";
+  public static final String USERS_PATH = "/api/users";
+  public static final String RECIPES_PATH = "/api/recipes";
+  public static final String INGREDIENTS_PATH = "/api/ingredients";
+  public static final String REVIEWS_PATH = "/api/reviews";
 
   public static URI toUri(String path) {
     return UriComponentsBuilder.fromPath(path).build().toUri();
@@ -139,8 +139,7 @@ public class TestUtils {
 
   public static void verifyResponseError(final ResultActions resultActions, URI uri,
       ResultMatcher statusResultMatcher, HttpStatus httpStatus, String message) throws Exception {
-    resultActions.andExpect(statusResultMatcher) // status().isBadRequest()
-        .andExpect(jsonPath("$.path", is(uri.toString())))
+    resultActions.andExpect(statusResultMatcher).andExpect(jsonPath("$.path", is(uri.toString())))
         .andExpect(jsonPath("$.status", is(httpStatus.value())))
         .andExpect(jsonPath("$.error", is(httpStatus.getReasonPhrase())))
         .andExpect(jsonPath("$.message", is(message)));

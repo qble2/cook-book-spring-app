@@ -45,7 +45,7 @@ public class UserControllerIntegrationTest {
     // given
     UserDto user = userService.createUser(TestUtils.createUser(null));
 
-    URI uri = TestUtils.toUri(TestUtils.USER_PATH + "/{userId}", user.getId());
+    URI uri = TestUtils.toUri(TestUtils.USERS_PATH + "/{userId}", user.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when

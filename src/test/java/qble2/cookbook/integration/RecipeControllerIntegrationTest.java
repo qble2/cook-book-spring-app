@@ -69,7 +69,7 @@ public class RecipeControllerIntegrationTest {
     RecipeDto recipe = recipeService.createRecipe(user.getUsername(), TestUtils.createRecipe(null,
         ingredient.setQuantity(1).setUnitOfMeasure(UnitOfMeasureEnum.GRAM)));
 
-    URI uri = TestUtils.toUri(TestUtils.RECIPE_PATH + "/{recipeId}", recipe.getId());
+    URI uri = TestUtils.toUri(TestUtils.RECIPES_PATH + "/{recipeId}", recipe.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when

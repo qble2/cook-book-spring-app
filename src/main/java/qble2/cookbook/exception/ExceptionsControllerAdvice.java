@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import lombok.extern.slf4j.Slf4j;
 
+// only works for synchronous exceptions
 @ControllerAdvice
 @Slf4j
 public class ExceptionsControllerAdvice {
@@ -95,10 +96,7 @@ public class ExceptionsControllerAdvice {
     return createErrorResponseEntity(request, HttpStatus.NOT_FOUND, exception);
   }
 
-  //
-
-  // put this one last, as a fail-safe, to catch any unhandled server exception, that requires a
-  // server code change
+  // at last, as a fail-safe, to catch any unhandled server exception
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ResponseErrorDto> unhandledExceptions(HttpServletRequest request,
       Exception exception) {
@@ -117,6 +115,12 @@ public class ExceptionsControllerAdvice {
 
   private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(String requestUri,
       HttpStatus httpStatus, String message, List<String> details) {
+    // String requestUrl = request.getRequestURI();
+    // String queryString = request.getQueryString();
+    // if (queryString != null) {
+    // requestUrl = requestUrl + "?" + queryString;
+    // }
+
     ResponseErrorDto responseError =
         ResponseErrorDto.builder().status(httpStatus.value()).error(httpStatus.getReasonPhrase())
             .message(message).details(details).path(requestUri).build();

@@ -73,7 +73,7 @@ class ReviewControllerTest {
   void given_recipeExists_getRecipeReviews_willReturnRecipeReviews() throws Exception {
     // given
     UUID existingRecipeId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.getRecipeReviews(any())).willReturn(anyList());
 
@@ -91,7 +91,7 @@ class ReviewControllerTest {
   void given_userExists_getUserReviews_willReturnUserReviews() throws Exception {
     // given
     UUID existingUserId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/users/{userId}", existingUserId);
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/users/{userId}", existingUserId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.getUserReviews(any())).willReturn(anyList());
 
@@ -111,7 +111,7 @@ class ReviewControllerTest {
     UUID recipeId = UUID.randomUUID();
     UUID userId = UUID.randomUUID();
     ReviewDto existingReview = TestUtils.createReview(recipeId, userId);
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}/users/{userId}",
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}/users/{userId}",
         existingReview.getAuthor().getId(), existingReview.getRecipe().getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.getReview(any(), any())).willReturn(existingReview);
@@ -139,14 +139,14 @@ class ReviewControllerTest {
     ReviewDto reviewPayload = TestUtils.createReview(null, null);
     ReviewDto createdReview =
         TestUtils.createReviewFrom(existingRecipeId, existingUserId, reviewPayload);
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}", existingRecipeId);
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}", existingRecipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.createReview(any(), any(), any())).willReturn(createdReview);
 
     // when
     // then
     String selfLink =
-        TestUtils.toHttpUriString(TestUtils.REVIEW_PATH + "/recipes/{recipeId}/users/{userId}",
+        TestUtils.toHttpUriString(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}/users/{userId}",
             createdReview.getRecipe().getId(), createdReview.getAuthor().getId()).toString();
 
     this.mockMvc
@@ -167,7 +167,7 @@ class ReviewControllerTest {
     ReviewDto reviewPayload = TestUtils.createReview(existingRecipeId, existingUserId);
     ReviewDto updatedReview =
         TestUtils.createReviewFrom(existingRecipeId, existingUserId, reviewPayload);
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}/users/{userId}",
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}/users/{userId}",
         existingRecipeId, existingUserId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.updateReview(any(), any(), any(), any())).willReturn(updatedReview);
@@ -197,7 +197,7 @@ class ReviewControllerTest {
     // given
     UUID recipeId = UUID.randomUUID();
     UUID userId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}/users/{userId}",
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}/users/{userId}",
         recipeId, userId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(reviewService.getReview(any(), any())).willThrow(new ResourceNotFoundException());
@@ -217,7 +217,7 @@ class ReviewControllerTest {
     // given
     UUID recipeId = UUID.randomUUID();
     UUID userId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.REVIEW_PATH + "/recipes/{recipeId}", recipeId);
+    URI uri = TestUtils.toUri(TestUtils.REVIEWS_PATH + "/recipes/{recipeId}", recipeId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     ReviewDto reviewPayload = TestUtils.createReview(recipeId, userId).setRating(null);
 

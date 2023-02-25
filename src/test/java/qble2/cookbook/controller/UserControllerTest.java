@@ -50,7 +50,7 @@ class UserControllerTest {
   @Test
   void given_none_getUsers_willReturnUsers() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.USER_PATH);
+    URI uri = TestUtils.toUri(TestUtils.USERS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     int page = 0;
     int size = 5;
@@ -60,7 +60,7 @@ class UserControllerTest {
 
     // when
     // then
-    String selfLink = TestUtils.toHttpUriString(TestUtils.USER_PATH,
+    String selfLink = TestUtils.toHttpUriString(TestUtils.USERS_PATH,
         new TreeMap<>(Map.of("page", page, "size", size)));
 
     this.mockMvc.perform(get(urlTemplate).accept(MediaTypes.HAL_JSON_VALUE)).andDo(print())
@@ -73,7 +73,7 @@ class UserControllerTest {
   void given_userExists_getUser_willReturnUser() throws Exception {
     // given
     UserDto existingUser = TestUtils.createUser(UUID.randomUUID());
-    URI uri = TestUtils.toUri(TestUtils.USER_PATH + "{userId}", existingUser.getId());
+    URI uri = TestUtils.toUri(TestUtils.USERS_PATH + "{userId}", existingUser.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(userService.getUser(any())).willReturn(existingUser);
 
@@ -94,7 +94,7 @@ class UserControllerTest {
   void given_userDoesNotExist_getUser_willReturnNotFound() throws Exception {
     // given
     UUID unknownUserId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.USER_PATH + "/{userId}", unknownUserId);
+    URI uri = TestUtils.toUri(TestUtils.USERS_PATH + "/{userId}", unknownUserId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(userService.getUser(any())).willThrow(new ResourceNotFoundException());
 

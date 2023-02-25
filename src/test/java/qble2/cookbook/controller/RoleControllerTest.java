@@ -63,7 +63,7 @@ class RoleControllerTest {
   @Test
   void given_none_getRoles_willReturnRoles() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when
@@ -80,7 +80,7 @@ class RoleControllerTest {
   void given_roleExists_getRole_willReturnRole() throws Exception {
     // given
     RoleDto existingRole = TestUtils.createRole(UUID.randomUUID(), RoleEnum.ROLE_USER);
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH + "/{roleId}", existingRole.getId());
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH + "/{roleId}", existingRole.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(roleService.getRole(any())).willReturn(existingRole);
 
@@ -101,7 +101,7 @@ class RoleControllerTest {
   @Test
   void given_validRole_createRole_willReturnCreatedRole() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     RoleDto rolePayload = TestUtils.createRole(null, RoleEnum.ROLE_USER);
     RoleDto createdRole = TestUtils.createRoleFrom(UUID.randomUUID(), rolePayload);
@@ -134,7 +134,7 @@ class RoleControllerTest {
   void given_roleDoesNotExist_getRole_willReturnResourceNotFound() throws Exception {
     // given
     UUID unknownRoleId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH + "/{roleId}", unknownRoleId);
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH + "/{roleId}", unknownRoleId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(roleService.getRole(any())).willThrow(new ResourceNotFoundException());
 
@@ -152,7 +152,7 @@ class RoleControllerTest {
   void given_invalidIdProperty_createRole_willReturnBadRequest() throws Exception {
     // given
     RoleDto rolePayload = TestUtils.createRole(UUID.randomUUID(), RoleEnum.ROLE_USER);
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when
@@ -172,7 +172,7 @@ class RoleControllerTest {
   @Test
   void given_nameAlreadyExists_createRole_willReturnBadRequest() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.ROLE_PATH);
+    URI uri = TestUtils.toUri(TestUtils.ROLES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     RoleDto rolePayload = TestUtils.createRole(null, RoleEnum.ROLE_USER);
     given(roleRepository.existsByName(rolePayload.getName())).willReturn(true);

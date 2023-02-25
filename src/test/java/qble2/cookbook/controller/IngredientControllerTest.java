@@ -63,7 +63,7 @@ class IngredientControllerTest {
   @Test
   void given_none_getIngredients_willReturnIngredients() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
 
     // when
@@ -81,7 +81,7 @@ class IngredientControllerTest {
     // given
     IngredientDto existingIngredient = TestUtils.createIngredient(UUID.randomUUID());
     URI uri =
-        TestUtils.toUri(TestUtils.INGREDIENT_PATH + "/{ingredientId}", existingIngredient.getId());
+        TestUtils.toUri(TestUtils.INGREDIENTS_PATH + "/{ingredientId}", existingIngredient.getId());
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(ingredientService.getIngredient(any())).willReturn(existingIngredient);
 
@@ -103,7 +103,7 @@ class IngredientControllerTest {
   @Test
   void given_validIngredient_createIngredient_willReturnCreatedIngredient() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     IngredientDto ingredientPayload = TestUtils.createIngredient(null);
     IngredientDto createdIngredient =
@@ -138,7 +138,7 @@ class IngredientControllerTest {
   void given_ingredientDoesNotExist_getIngredient_willReturnResourceNotFound() throws Exception {
     // given
     UUID unknownIngredientId = UUID.randomUUID();
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH + "/{ingredientId}", unknownIngredientId);
+    URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH + "/{ingredientId}", unknownIngredientId);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     given(ingredientService.getIngredient(any())).willThrow(new ResourceNotFoundException());
 
@@ -155,7 +155,7 @@ class IngredientControllerTest {
   @Test
   void given_InvalidIdProperty_createIngredient_willReturnBadRequest() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     IngredientDto ingredientPayload = TestUtils.createIngredient(UUID.randomUUID());
 
@@ -176,7 +176,7 @@ class IngredientControllerTest {
   @Test
   void given_nameAlreadyTaken_createIngredient_willReturnBadRequest() throws Exception {
     // given
-    URI uri = TestUtils.toUri(TestUtils.INGREDIENT_PATH);
+    URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);
     IngredientDto ingredientPayload = TestUtils.createIngredient(null);
     given(ingredientRepository.existsByName(any())).willReturn(true);
