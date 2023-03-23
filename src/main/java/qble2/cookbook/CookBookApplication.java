@@ -37,19 +37,19 @@ public class CookBookApplication {
         // role
         RoleDto adminRole = RoleDto.builder().name(RoleEnum.ROLE_ADMIN).build();
         RoleDto createdRole = roleService.createRole(adminRole);
-        log.info("created role: (name: {} , id: {})", createdRole.getId(), createdRole.getName());
+        log.info("Created role: (name: {} , id: {})", createdRole.getId(), createdRole.getName());
 
         // user
         UserDto adminUser = UserDto.builder().username("admin").password("admin").firstName("a")
-            .lastName("b").email("bkerdye@gmail.com").build();
+            .lastName("b").email("b@k.com").build();
 
         UserDto createdUser = userService.createUser(adminUser);
-        log.info("created user: (username: {} , id: {})", createdUser.getUsername(),
+        log.info("Created user: (username: {} , id: {})", createdUser.getUsername(),
             createdUser.getId());
 
         // add role to user
         roleService.addRoleToUser(createdUser.getId(), createdRole.getId());
-        log.info("role {} has been added to user {}", createdRole.getName(),
+        log.info("Role {} has been added to user {}", createdRole.getName(),
             createdUser.getUsername());
       } catch (Exception e) {
         log.warn(e.getMessage());

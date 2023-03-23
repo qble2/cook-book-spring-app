@@ -44,7 +44,7 @@ public class InitFakeDataConfiguration {
         // role
         RoleDto userRole = RoleDto.builder().name(RoleEnum.ROLE_USER).build();
         RoleDto createdRole = roleService.createRole(userRole);
-        log.info("created role: (name: {} , id: {})", createdRole.getName(), createdRole.getId());
+        log.info("Created role: (name: {} , id: {})", createdRole.getName(), createdRole.getId());
 
         // user
         List<UserDto> users = new ArrayList<>();
@@ -59,7 +59,7 @@ public class InitFakeDataConfiguration {
 
         // add role to users
         users.stream().forEach(user -> {
-          log.info("adding role {} to user {}", createdRole.getName(), user.getUsername());
+          log.info("Adding role {} to user {}", createdRole.getName(), user.getUsername());
           roleService.addRoleToUser(user.getId(), createdRole.getId());
         });
 
@@ -68,7 +68,7 @@ public class InitFakeDataConfiguration {
           IngredientDto ingredientDto =
               IngredientDto.builder().name("Ingredient " + counter).build();
           IngredientDto createdIngredient = ingredientService.createIngredient(ingredientDto);
-          log.info("created ingredient: (name: {} , id: {})", createdIngredient.getName(),
+          log.info("Created ingredient: (name: {} , id: {})", createdIngredient.getName(),
               createdIngredient.getId());
           return createdIngredient;
         }).toList();
@@ -92,7 +92,7 @@ public class InitFakeDataConfiguration {
                   getRandomElements(quantifiedRecipeIngredients, generateRandomInt(1, 5))))
               .instructions(List.of("do 1", "do 2", "do 3")).build();
           RecipeDto createdRecipeDto = recipeService.createRecipe(userDto.getUsername(), recipeDto);
-          log.info("created recipe: (name: {} , id: {})", createdRecipeDto.getName(),
+          log.info("Created recipe: (name: {} , id: {})", createdRecipeDto.getName(),
               createdRecipeDto.getId());
           return createdRecipeDto;
         }).toList();
@@ -110,13 +110,13 @@ public class InitFakeDataConfiguration {
                         .reviewDate(LocalDateTime.now()).build();
                 ReviewDto createdRecipeReview =
                     reviewService.createReview(user.getUsername(), recipe.getId(), reviewDto);
-                log.info("created review for recipe {} by user {}",
+                log.info("Created review for recipe {} by user {}",
                     createdRecipeReview.getRecipe().getName(),
                     createdRecipeReview.getAuthor().getUsername());
               });
         });
       } catch (Exception e) {
-        log.error("an error has occured", e);
+        log.error("An error has occured", e);
       }
     };
 
@@ -128,7 +128,7 @@ public class InitFakeDataConfiguration {
         .email(String.format("%s@xxx.com", userName)).build();
 
     UserDto createdUser = userService.createUser(userDto);
-    log.info("created user: (username: {} , id: {})", createdUser.getUsername(),
+    log.info("Created user: (username: {} , id: {})", createdUser.getUsername(),
         createdUser.getId());
 
     return createdUser;

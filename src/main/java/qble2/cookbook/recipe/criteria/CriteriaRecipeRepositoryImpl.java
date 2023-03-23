@@ -51,7 +51,7 @@ public class CriteriaRecipeRepositoryImpl implements CriteriaRecipeRepository {
 
   @Override
   public Page<Recipe> findByCriteria(RecipeSearchRequest recipeSearch, Pageable pageable) {
-    log.info("page: {} , size: {}", pageable.getOffset(), pageable.getPageSize());
+    log.info("Page: {} , Size: {}", pageable.getOffset(), pageable.getPageSize());
 
     CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
 
@@ -60,7 +60,7 @@ public class CriteriaRecipeRepositoryImpl implements CriteriaRecipeRepository {
     Root<Recipe> countRoot = buildQuery(cb, countQuery, recipeSearch);
     countQuery.select(cb.countDistinct(countRoot));
     Long count = entityManager.createQuery(countQuery).getSingleResult();
-    log.info("count query: {}", count);
+    log.info("Count query: {}", count);
 
     // actual query
     CriteriaQuery<Recipe> actualQuery = cb.createQuery(Recipe.class);
@@ -83,7 +83,7 @@ public class CriteriaRecipeRepositoryImpl implements CriteriaRecipeRepository {
     List<Predicate> predicates = new ArrayList<>();
     Optional.ofNullable(recipeSearch.getFilters()).orElse(Collections.emptyList()).stream()
         .forEach(searchFilter -> {
-          log.info("searchFilter:: key: {} , operator: {} , value: {} , values: {}",
+          log.info("SearchFilter:: key: {} , operator: {} , value: {} , values: {}",
               searchFilter.getKey(), searchFilter.getOperator(), searchFilter.getValue(),
               searchFilter.getValues());
           switch (searchFilter.getKey()) {

@@ -20,12 +20,12 @@ public class RecipeQuerySorter {
       RecipeSearchSort recipeSearchSort) {
 
     if (recipeSearchSort == null) {
-      log.info("no sorting was asked, setting a default one");
+      log.info("No sorting was asked, setting a default one");
       recipeSearchSort = new RecipeSearchSort(RecipeSearchSortKeyEnum.RECIPE_CREATED_AT,
           RecipeSearchSortDirectionEnum.DESC);
     }
 
-    log.info("sorting by {} {}", recipeSearchSort.getKey(), recipeSearchSort.getDirection());
+    log.info("Sorting by {} {}", recipeSearchSort.getKey(), recipeSearchSort.getDirection());
     switch (recipeSearchSort.getKey()) {
       case RECIPE_AUTHOR:
         // fetch needed to order by author name

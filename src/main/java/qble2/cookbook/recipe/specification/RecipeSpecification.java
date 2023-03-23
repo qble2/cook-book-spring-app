@@ -36,7 +36,7 @@ public class RecipeSpecification implements Specification<Recipe> {
 
     Optional.ofNullable(recipeSearch.getFilters()).orElse(Collections.emptyList()).stream()
         .forEach(recipeSearchFilter -> {
-          log.info("recipe search filter:: key: {} , operator: {} , value: {}, values: {}",
+          log.info("Recipe search filter:: key: {} , operator: {} , value: {}, values: {}",
               recipeSearchFilter.getKey(), recipeSearchFilter.getOperator(),
               recipeSearchFilter.getValue(), recipeSearchFilter.getValues());
 
