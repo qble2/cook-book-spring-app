@@ -1,3 +1,7 @@
+>*Disclaimer:* 
+>- *This project main purpose was a learning experience to tackle building a REST API with Spring Boot.*
+>- *It may contain unpolished code that needs to be refactored and modernized.*
+>
 # Cook Book Spring
 
 A Java [Spring Boot](https://spring.io/projects/spring-boot) REST API exchanging data using the JSON format.
