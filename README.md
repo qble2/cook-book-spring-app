@@ -1,6 +1,6 @@
 >*Disclaimer:* 
 >- *This project main purpose was a learning experience to tackle building a REST API with Spring Boot.*
->- *It may contain unpolished code that needs to be refactored and modernized.*
+>- *It may contain unpolished, experimental or rushed code that needs to be refactored and modernized.*
 >
 # Cook Book Spring
 
