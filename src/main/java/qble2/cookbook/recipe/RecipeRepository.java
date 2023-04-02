@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import qble2.cookbook.recipe.criteria.CriteriaRecipeRepository;
+import qble2.cookbook.recipe.criteria.RecipeCriteriaRepository;
 import qble2.cookbook.recipe.dtoprojection.DtoProjectionRecipeRepository;
 import qble2.cookbook.recipe.model.Recipe;
 
-public interface RecipeRepository extends JpaRepository<Recipe, UUID>, CriteriaRecipeRepository,
+public interface RecipeRepository extends JpaRepository<Recipe, UUID>, RecipeCriteriaRepository,
     DtoProjectionRecipeRepository, JpaSpecificationExecutor<Recipe> {
 
   /** Paging **/

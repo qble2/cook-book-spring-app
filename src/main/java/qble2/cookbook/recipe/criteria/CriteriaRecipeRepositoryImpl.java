@@ -44,7 +44,7 @@ import qble2.cookbook.user.model.User_;
 @Deprecated
 @Repository
 @Slf4j
-public class CriteriaRecipeRepositoryImpl implements CriteriaRecipeRepository {
+public class CriteriaRecipeRepositoryImpl implements RecipeCriteriaRepository {
 
   @PersistenceContext
   private EntityManager entityManager;
