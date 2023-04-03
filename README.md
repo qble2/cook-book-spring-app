@@ -2,7 +2,7 @@
 >- *This project main purpose was a learning experience to tackle building a REST API with Spring Boot.*
 >- *It may contain unpolished, experimental or rushed code that needs to be refactored and modernized.*
 >
-# Cook Book Spring
+# Cook Book Spring App
 
 A Java [Spring Boot](https://spring.io/projects/spring-boot) REST API exchanging data using the JSON format.
 
