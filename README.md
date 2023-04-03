@@ -4,7 +4,8 @@
 >
 # Cook Book Spring App
 
-A Java [Spring Boot](https://spring.io/projects/spring-boot) REST API exchanging data using the JSON format, allowing users to browse and create cooking recipes.
+A Java [Spring Boot](https://spring.io/projects/spring-boot) REST API exchanging data using the JSON format.
+The application allows users to browse and create cooking recipes.
 
 The persistence layer is managed by [Spring Data JPA](https://spring.io/projects/spring-data-jpa) and [Hibernate](https://hibernate.org).  
 The JSON serialization/deserialization is handled by [Jackson](https://github.com/FasterXML/jackson).  
