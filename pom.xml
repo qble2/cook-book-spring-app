@@ -166,7 +166,7 @@
 							<artifactId>hibernate-jpamodelgen</artifactId>
 							<version>${hibernate.version}</version>
 						</path>
-						<!-- order matters: lombok before maptruct -->
+						<!-- Order matters: Lombok before MapStruct -->
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
