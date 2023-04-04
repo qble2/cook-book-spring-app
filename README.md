@@ -10,7 +10,7 @@ This application allows users to browse and create cooking recipes.
 The persistence layer is managed by [Spring Data JPA](https://spring.io/projects/spring-data-jpa) and [Hibernate](https://hibernate.org).  
 The JSON serialization/deserialization is handled by [Jackson](https://github.com/FasterXML/jackson).  
 
-The application security is managed by Spring Security using a JWT-based authentication process.
+The application security is managed by [Spring Security](https://docs.spring.io/spring-security/reference/index.html) using a [JWT](https://jwt.io)-based authentication process.
 
 [Lombok](https://projectlombok.org) is used to reduce boilerplate code.  
 The mapping between Java bean types is done using [MapStruct](https://mapstruct.org).  
