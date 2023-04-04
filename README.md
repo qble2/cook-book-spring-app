@@ -19,14 +19,14 @@ The project's build is managed by [Maven](https://maven.apache.org).
 >*(An Angular web application consuming this REST API can be found [here.](https://github.com/qble2/cook-book-angular-app))*
 
 ## Features:
-The application allows the user to:
-- Sign up
-- Sign in
-- Browse recipes
-- Filter recipes
-- Create recipes
-- Update recipes
-- Rate recipes
+This API allows a user to:
+- Sign up.
+- Sign in.
+- Browse recipes.
+- Filter recipes.
+- Create recipes.
+- Update recipes.
+- Rate recipes.
 
 ## Built with:
 - Java 17
