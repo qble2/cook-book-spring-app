@@ -61,7 +61,7 @@ class RoleControllerTest {
   /////
 
   @Test
-  void given_none_getRoles_willReturnRoles() throws Exception {
+  void given_validRequest_getRoles_willReturnRoles() throws Exception {
     // given
     URI uri = TestUtils.toUri(TestUtils.ROLES_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);

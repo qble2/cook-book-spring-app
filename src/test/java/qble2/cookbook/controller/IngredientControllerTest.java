@@ -61,7 +61,7 @@ class IngredientControllerTest {
   /////
 
   @Test
-  void given_none_getIngredients_willReturnIngredients() throws Exception {
+  void given_validRequest_getIngredients_willReturnIngredients() throws Exception {
     // given
     URI uri = TestUtils.toUri(TestUtils.INGREDIENTS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);

@@ -61,7 +61,7 @@ public class AuthController {
     return ResponseEntity.created(uri).body(createdUserDto);
   }
 
-  @GetMapping("/refresh-token")
+  @GetMapping(path = "/refresh-token")
   public void refreshToken(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 

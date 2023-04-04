@@ -48,7 +48,7 @@ class UserControllerTest {
   /////
 
   @Test
-  void given_none_getUsers_willReturnUsers() throws Exception {
+  void given_validRequest_getUsers_willReturnUsers() throws Exception {
     // given
     URI uri = TestUtils.toUri(TestUtils.USERS_PATH);
     String urlTemplate = TestUtils.toHttpUriString(uri);

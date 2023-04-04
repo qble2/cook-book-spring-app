@@ -36,6 +36,10 @@ public class TestUtils {
   public static final String INGREDIENTS_PATH = "/api/ingredients";
   public static final String REVIEWS_PATH = "/api/reviews";
 
+  public static String toUriString(String path) {
+    return UriComponentsBuilder.fromPath(path).toUriString();
+  }
+
   public static URI toUri(String path) {
     return UriComponentsBuilder.fromPath(path).build().toUri();
   }
@@ -52,29 +56,21 @@ public class TestUtils {
     return toHttpUriString(path, null, uriVariables);
   }
 
-  public static String toHttpUriString(String path, Map<String, Object> params,
+  public static String toHttpUriString(String path, Map<String, Object> queryParams,
       Object... uriVariables) {
     UriComponentsBuilder uriComponentsBuilder =
         UriComponentsBuilder.newInstance().scheme("http").host(HOST).path(path);
-    if (params != null) {
-      params.keySet().forEach(key -> uriComponentsBuilder.queryParam(key, params.get(key)));
+
+    if (queryParams != null) {
+      queryParams.keySet().forEach(key -> uriComponentsBuilder.queryParam(key, queryParams.get(key)));
     }
 
-    return toUriComponentsBuilder(path, params, uriVariables).scheme("http").host(HOST)
-        .build(uriVariables).toString();
+    return uriComponentsBuilder.build(uriVariables).toString();
   }
 
-  private static UriComponentsBuilder toUriComponentsBuilder(String path,
-      Map<String, Object> params, Object... uriVariables) {
-    UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().path(path);
-    if (params != null) {
-      params.keySet().forEach(key -> uriComponentsBuilder.queryParam(key, params.get(key)));
-    }
-
-    return uriComponentsBuilder;
-  }
-
-  //
+  /////
+  /////
+  /////
 
   public static RoleDto createRole(UUID id, RoleEnum roleEnum) {
     return RoleDto.builder().id(id).name(roleEnum).build();
