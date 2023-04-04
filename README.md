@@ -20,13 +20,13 @@ The project's build is managed by [Maven](https://maven.apache.org).
 
 ## Features:
 This API allows a user to:
-- Sign up.
-- Sign in.
-- Browse recipes.
-- Filter recipes.
-- Create recipes.
-- Update recipes.
-- Rate recipes.
+- Sign up
+- Sign in
+- Browse recipes
+- Filter recipes
+- Create recipes
+- Update recipes
+- Rate recipes
 
 ## Built with:
 - Java 17
