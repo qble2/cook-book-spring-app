@@ -74,7 +74,7 @@ public class ReviewController {
   // ?return new review metadata which includes updated review + new average rating?
   @PostMapping(path = "/recipes/{recipeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("isAuthenticated()")
-  @Validated({ReviewDto.OnCreateValidationGroup.class})
+  @Validated(ReviewDto.OnCreateValidationGroup.class)
   public ResponseEntity<ReviewDto> createReview(
       @CurrentSecurityContext(expression = "authentication?.name") String username,
       @PathVariable(name = "recipeId", required = true) UUID recipeId,
@@ -101,7 +101,7 @@ public class ReviewController {
   @PutMapping(path = "/recipes/{recipeId}/users/{userId}",
       consumes = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
-  @Validated({ReviewDto.OnUpdateValidationGroup.class})
+  @Validated(ReviewDto.OnUpdateValidationGroup.class)
   public ResponseEntity<ReviewDto> updateReview(
       @CurrentSecurityContext(expression = "authentication?.name") String username,
       @PathVariable(name = "recipeId", required = true) UUID recipeId,

@@ -54,7 +54,7 @@ public class ReviewService {
     return this.reviewMapper.toDto(getReviewOrThrow(recipeId, userId));
   }
 
-  @Validated({ReviewDto.OnCreateValidationGroup.class})
+  @Validated(ReviewDto.OnCreateValidationGroup.class)
   public ReviewDto createReview(String username, UUID recipeId, @Valid ReviewDto reviewDto) {
     User user = this.userService.getUserByUsernameOrThrow(username);
     Recipe recipe = this.recipeService.getRecipeByIdOrThrow(recipeId);
@@ -71,7 +71,7 @@ public class ReviewService {
             .orElseThrow(ResourceNotFoundException::new));
   }
 
-  @Validated({ReviewDto.OnUpdateValidationGroup.class})
+  @Validated(ReviewDto.OnUpdateValidationGroup.class)
   public ReviewDto updateReview(String username, UUID recipeId, UUID userId,
       @Valid ReviewDto reviewDto) {
     Review review = getReviewAndCheckOwnershipOrThrow(recipeId, userId);

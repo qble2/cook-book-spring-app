@@ -29,13 +29,13 @@ public class ExceptionsControllerAdvice {
   public static final String INTERNAL_SERVER_ERROR_MESSAGE =
       "Internal Server Error (Please contact the administrator)";
 
-  @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   public ResponseEntity<ResponseErrorDto> handleHttpRequestMethodNotSupportedException(
       HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
     return createErrorResponseEntity(request, HttpStatus.METHOD_NOT_ALLOWED, exception);
   }
 
-  @ExceptionHandler({AccessDeniedException.class})
+  @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ResponseErrorDto> handleAccessDeniedException(HttpServletRequest request,
       AccessDeniedException exception) {
     return createErrorResponseEntity(request.getRequestURI(), HttpStatus.FORBIDDEN,
@@ -49,7 +49,7 @@ public class ExceptionsControllerAdvice {
   }
 
   // Spring Validation (Controller level)
-  @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<ResponseErrorDto> handleMethodArgumentTypeMismatchException(
       HttpServletRequest request, MethodArgumentTypeMismatchException exception) {
     String requiredTypeName =
@@ -63,7 +63,7 @@ public class ExceptionsControllerAdvice {
   }
 
   // Spring Validation (Controller level)
-  @ExceptionHandler({MethodArgumentNotValidException.class,})
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ResponseErrorDto> handleMethodArgumentNotValidException(
       HttpServletRequest request, MethodArgumentNotValidException exception) {
     List<String> validationErrors = exception.getBindingResult().getFieldErrors().stream()
@@ -75,7 +75,7 @@ public class ExceptionsControllerAdvice {
   }
 
   // Spring Validation
-  @ExceptionHandler({ConstraintViolationException.class})
+  @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<ResponseErrorDto> handleConstraintViolationException(
       HttpServletRequest request, ConstraintViolationException exception) {
     List<String> constraintViolations =
@@ -84,13 +84,13 @@ public class ExceptionsControllerAdvice {
         CONSTRAINT_VIOLATION_MESSAGE, constraintViolations);
   }
 
-  @ExceptionHandler({InvalidArgumentException.class})
+  @ExceptionHandler(InvalidArgumentException.class)
   public ResponseEntity<ResponseErrorDto> handleIllegalArgumentException(HttpServletRequest request,
       Exception exception) {
     return createErrorResponseEntity(request, HttpStatus.BAD_REQUEST, exception);
   }
 
-  @ExceptionHandler({ResourceNotFoundException.class})
+  @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<ResponseErrorDto> handleResourceNotFoundException(
       HttpServletRequest request, Exception exception) {
     return createErrorResponseEntity(request, HttpStatus.NOT_FOUND, exception);
