@@ -22,20 +22,17 @@ public class RecipeCookingTimeSpecification implements Specification<Recipe> {
   @Override
   public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
     Number value = recipeSearchFilter.getValueAsNumber();
-    if (value != null) {
-      switch (recipeSearchFilter.getOperator()) {
-        case GTE:
-          return cb.ge(root.get(Recipe_.cookingTime), value.longValue());
-
-        case LTE:
-          return cb.le(root.get(Recipe_.cookingTime), value.longValue());
-
-        default:
-          break;
-      }
+    if (value == null) {
+      return null;
     }
 
-    return null;
+    return switch (recipeSearchFilter.getOperator()) {
+      case GTE -> cb.ge(root.get(Recipe_.cookingTime), value.longValue());
+      case LTE -> cb.le(root.get(Recipe_.cookingTime), value.longValue());
+
+      default -> throw new IllegalArgumentException(
+          "Unexpected value: " + recipeSearchFilter.getOperator());
+    };
   }
 
 }

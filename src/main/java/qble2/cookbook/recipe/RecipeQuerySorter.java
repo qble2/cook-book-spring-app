@@ -27,48 +27,37 @@ public class RecipeQuerySorter {
 
     log.info("Sorting by {} {}", recipeSearchSort.getKey(), recipeSearchSort.getDirection());
     switch (recipeSearchSort.getKey()) {
-      case RECIPE_AUTHOR:
+      case RECIPE_AUTHOR -> {
         // fetch needed to order by author name
         root.fetch(Recipe_.author, JoinType.LEFT);
         orderBy(query, cb, root.get(Recipe_.author).get(User_.username),
             recipeSearchSort.getDirection());
-        break;
+      }
 
-      case RECIPE_NAME:
-        orderBy(query, cb, root.get(Recipe_.name), recipeSearchSort.getDirection());
-        break;
+      case RECIPE_NAME -> orderBy(query, cb, root.get(Recipe_.name),
+          recipeSearchSort.getDirection());
 
-      case RECIPE_PREPARATION_TIME:
-        orderBy(query, cb, root.get(Recipe_.preparationTime), recipeSearchSort.getDirection());
-        break;
+      case RECIPE_PREPARATION_TIME -> orderBy(query, cb, root.get(Recipe_.preparationTime),
+          recipeSearchSort.getDirection());
 
-      case RECIPE_COOKING_TIME:
-        orderBy(query, cb, root.get(Recipe_.cookingTime), recipeSearchSort.getDirection());
-        break;
+      case RECIPE_COOKING_TIME -> orderBy(query, cb, root.get(Recipe_.cookingTime),
+          recipeSearchSort.getDirection());
 
-      case RECIPE_AVERAGE_RATING:
-        orderBy(query, cb, root.get(Recipe_.averageRating), recipeSearchSort.getDirection());
-        break;
+      case RECIPE_AVERAGE_RATING -> orderBy(query, cb, root.get(Recipe_.averageRating),
+          recipeSearchSort.getDirection());
 
-      case RECIPE_CREATED_AT:
-        orderBy(query, cb, root.get(Recipe_.createdAt), recipeSearchSort.getDirection());
-        break;
+      case RECIPE_CREATED_AT -> orderBy(query, cb, root.get(Recipe_.createdAt),
+          recipeSearchSort.getDirection());
     }
   }
 
   private void orderBy(CriteriaQuery<?> query, CriteriaBuilder cb, Path<?> path,
       RecipeSearchSortDirectionEnum direction) {
     switch (direction) {
-      case ASC:
-        query.orderBy(cb.asc(path));
-        break;
+      case ASC -> query.orderBy(cb.asc(path));
+      case DESC -> query.orderBy(cb.desc(path));
 
-      case DESC:
-        query.orderBy(cb.desc(path));
-        break;
-
-      default:
-        throw new IllegalArgumentException("Unexpected value: " + direction);
+      default -> throw new IllegalArgumentException("Unexpected value: " + direction);
     }
   }
 

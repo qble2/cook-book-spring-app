@@ -27,20 +27,17 @@ public class RecipeTagsSpecification implements Specification<Recipe> {
 
   @Override
   public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-    if (CollectionUtils.isNotEmpty(recipeSearchFilter.getValues())) {
-      switch (recipeSearchFilter.getOperator()) {
-        case ANY:
-          return containsAny(recipeSearchFilter.getValues()).toPredicate(root, query, cb);
-
-        case ALL:
-          return containsAll(recipeSearchFilter.getValues()).toPredicate(root, query, cb);
-
-        default:
-          break;
-      }
+    if (CollectionUtils.isEmpty(recipeSearchFilter.getValues())) {
+      return null;
     }
 
-    return null;
+    return switch (recipeSearchFilter.getOperator()) {
+      case ANY -> containsAny(recipeSearchFilter.getValues()).toPredicate(root, query, cb);
+      case ALL -> containsAll(recipeSearchFilter.getValues()).toPredicate(root, query, cb);
+
+      default -> throw new IllegalArgumentException(
+          "Unexpected value: " + recipeSearchFilter.getOperator());
+    };
   }
 
   private static Specification<Recipe> containsAny(List<Object> tags) {

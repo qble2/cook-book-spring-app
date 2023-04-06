@@ -22,18 +22,17 @@ public class RecipeDescriptionSpecification implements Specification<Recipe> {
 
   @Override
   public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-    if (StringUtils.isNotBlank((String) recipeSearchFilter.getValue())) {
-      switch (recipeSearchFilter.getOperator()) {
-        case LIKE:
-          return cb.like(cb.lower(root.get(Recipe_.description)),
-              "%" + recipeSearchFilter.getValue().toString().toLowerCase() + "%");
-
-        default:
-          break;
-      }
+    if (StringUtils.isBlank((String) recipeSearchFilter.getValue())) {
+      return null;
     }
 
-    return null;
+    return switch (recipeSearchFilter.getOperator()) {
+      case LIKE -> cb.like(cb.lower(root.get(Recipe_.description)),
+          "%" + recipeSearchFilter.getValue().toString().toLowerCase() + "%");
+
+      default -> throw new IllegalArgumentException(
+          "Unexpected value: " + recipeSearchFilter.getOperator());
+    };
   }
 
 }

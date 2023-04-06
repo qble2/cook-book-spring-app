@@ -23,27 +23,21 @@ public class RecipeAuhtorSpecification implements Specification<Recipe> {
 
   @Override
   public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-    if (StringUtils.isNotBlank((String) recipeSearchFilter.getValue())) {
-      switch (recipeSearchFilter.getOperator()) {
-        case EQUAL:
-          return cb.equal(root.get(Recipe_.author).get(User_.username),
-              recipeSearchFilter.getValue());
-
-        case NOT_EQUAL:
-          return cb.notEqual(root.get(Recipe_.author).get(User_.username),
-              recipeSearchFilter.getValue());
-
-        case LIKE:
-          return cb.like(cb.lower(root.get(Recipe_.author).get(User_.username)),
-              "%" + recipeSearchFilter.getValue().toString().toLowerCase() + "%");
-
-        default:
-          break;
-      }
-
+    if (StringUtils.isBlank((String) recipeSearchFilter.getValue())) {
+      return null;
     }
 
-    return null;
+    return switch (recipeSearchFilter.getOperator()) {
+      case EQUAL -> cb.equal(root.get(Recipe_.author).get(User_.username),
+          recipeSearchFilter.getValue());
+      case NOT_EQUAL -> cb.notEqual(root.get(Recipe_.author).get(User_.username),
+          recipeSearchFilter.getValue());
+      case LIKE -> cb.like(cb.lower(root.get(Recipe_.author).get(User_.username)),
+          "%" + recipeSearchFilter.getValue().toString().toLowerCase() + "%");
+
+      default -> throw new IllegalArgumentException(
+          "Unexpected value: " + recipeSearchFilter.getOperator());
+    };
   }
 
 }

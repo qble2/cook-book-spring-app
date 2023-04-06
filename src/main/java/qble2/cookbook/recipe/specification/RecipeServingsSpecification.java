@@ -22,23 +22,18 @@ public class RecipeServingsSpecification implements Specification<Recipe> {
   @Override
   public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
     Number value = recipeSearchFilter.getValueAsNumber();
-    if (value != null) {
-      switch (recipeSearchFilter.getOperator()) {
-        case EQUAL:
-          return cb.equal(root.get(Recipe_.servings), value);
-
-        case GTE:
-          return cb.ge(root.get(Recipe_.servings), value);
-
-        case LTE:
-          return cb.le(root.get(Recipe_.servings), value);
-
-        default:
-          break;
-      }
+    if (value == null) {
+      return null;
     }
 
-    return null;
+    return switch (recipeSearchFilter.getOperator()) {
+      case EQUAL -> cb.equal(root.get(Recipe_.servings), value);
+      case GTE -> cb.ge(root.get(Recipe_.servings), value);
+      case LTE -> cb.le(root.get(Recipe_.servings), value);
+
+      default -> throw new IllegalArgumentException(
+          "Unexpected value: " + recipeSearchFilter.getOperator());
+    };
   }
 
 }

@@ -42,61 +42,45 @@ public class RecipeSpecification implements Specification<Recipe> {
 
           switch (recipeSearchFilter.getKey()) {
 
-            case USER_RECIPES:
-              predicates
-                  .add(new IsUserRecipesSpecification(recipeSearchFilter, recipeSearch.getUserId())
-                      .toPredicate(root, query, cb));
-              break;
+            case USER_RECIPES -> predicates
+                .add(new IsUserRecipesSpecification(recipeSearchFilter, recipeSearch.getUserId())
+                    .toPredicate(root, query, cb));
 
-            case FAVORITE_RECIPES:
-              predicates.add(new IsUserFavoriteRecipesSpecification(recipeSearchFilter,
-                  recipeSearch.getUserId()).toPredicate(root, query, cb));
-              break;
+            case FAVORITE_RECIPES -> predicates.add(
+                new IsUserFavoriteRecipesSpecification(recipeSearchFilter, recipeSearch.getUserId())
+                    .toPredicate(root, query, cb));
 
-            case RECIPE_AUTHOR:
-              predicates.add(
-                  new RecipeAuhtorSpecification(recipeSearchFilter).toPredicate(root, query, cb));
-              break;
+            case RECIPE_AUTHOR -> predicates.add(
+                new RecipeAuhtorSpecification(recipeSearchFilter).toPredicate(root, query, cb));
 
-            case RECIPE_NAME:
-              predicates.add(
-                  new RecipeNameSpecification(recipeSearchFilter).toPredicate(root, query, cb));
-              break;
+            case RECIPE_NAME -> predicates
+                .add(new RecipeNameSpecification(recipeSearchFilter).toPredicate(root, query, cb));
 
-            case RECIPE_DESCRIPTION:
-              predicates.add(new RecipeDescriptionSpecification(recipeSearchFilter)
-                  .toPredicate(root, query, cb));
-              break;
+            case RECIPE_DESCRIPTION -> predicates
+                .add(new RecipeDescriptionSpecification(recipeSearchFilter).toPredicate(root, query,
+                    cb));
 
-            case RECIPE_SERVINGS:
-              predicates.add(
-                  new RecipeServingsSpecification(recipeSearchFilter).toPredicate(root, query, cb));
-              break;
+            case RECIPE_SERVINGS -> predicates.add(
+                new RecipeServingsSpecification(recipeSearchFilter).toPredicate(root, query, cb));
 
-            case RECIPE_PREPARATION_TIME:
-              predicates.add(new RecipePreparationTimeSpecification(recipeSearchFilter)
-                  .toPredicate(root, query, cb));
-              break;
+            case RECIPE_PREPARATION_TIME -> predicates
+                .add(new RecipePreparationTimeSpecification(recipeSearchFilter).toPredicate(root,
+                    query, cb));
 
-            case RECIPE_COOKING_TIME:
-              predicates.add(new RecipeCookingTimeSpecification(recipeSearchFilter)
-                  .toPredicate(root, query, cb));
-              break;
+            case RECIPE_COOKING_TIME -> predicates
+                .add(new RecipeCookingTimeSpecification(recipeSearchFilter).toPredicate(root, query,
+                    cb));
 
-            case RECIPE_TAGS:
-              predicates.add(
-                  new RecipeTagsSpecification(recipeSearchFilter).toPredicate(root, query, cb));
-              break;
+            case RECIPE_TAGS -> predicates
+                .add(new RecipeTagsSpecification(recipeSearchFilter).toPredicate(root, query, cb));
 
-            case RECIPE_INGREDIENTS:
-              predicates.add(new RecipeIngredientsSpecification(recipeSearchFilter)
-                  .toPredicate(root, query, cb));
-              break;
+            case RECIPE_INGREDIENTS -> predicates
+                .add(new RecipeIngredientsSpecification(recipeSearchFilter).toPredicate(root, query,
+                    cb));
 
-            case RECIPE_AVERAGE_RATING:
-              predicates.add(new RecipeAverageRatingSpecification(recipeSearchFilter)
-                  .toPredicate(root, query, cb));
-              break;
+            case RECIPE_AVERAGE_RATING -> predicates
+                .add(new RecipeAverageRatingSpecification(recipeSearchFilter).toPredicate(root,
+                    query, cb));
           }
         });
 
