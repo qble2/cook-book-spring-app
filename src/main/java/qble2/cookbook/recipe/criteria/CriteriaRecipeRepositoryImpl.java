@@ -86,173 +86,129 @@ public class CriteriaRecipeRepositoryImpl implements RecipeCriteriaRepository {
           log.info("SearchFilter:: key: {} , operator: {} , value: {} , values: {}",
               searchFilter.getKey(), searchFilter.getOperator(), searchFilter.getValue(),
               searchFilter.getValues());
+
           switch (searchFilter.getKey()) {
 
-            case USER_RECIPES: {
+            case USER_RECIPES -> {
               if (recipeSearch.getUserId() != null
                   && BooleanUtils.isTrue((Boolean) searchFilter.getValue())) {
                 Join<Recipe, User> author = root.join(Recipe_.author, JoinType.INNER);
                 predicates.add(cb.equal(author.get(User_.id), recipeSearch.getUserId()));
               }
             }
-              break;
 
-            case FAVORITE_RECIPES: {
+            case FAVORITE_RECIPES -> {
               if (recipeSearch.getUserId() != null
                   && BooleanUtils.isTrue((Boolean) searchFilter.getValue())) {
                 SetJoin<Recipe, User> users = root.join(Recipe_.favoritedBy);
                 predicates.add(cb.equal(users.get(User_.id), recipeSearch.getUserId()));
               }
             }
-              break;
 
-            case RECIPE_AUTHOR: {
+            case RECIPE_AUTHOR -> {
               if (StringUtils.isNotBlank((String) searchFilter.getValue())) {
                 switch (searchFilter.getOperator()) {
-                  case LIKE:
-                    predicates.add(cb.like(cb.lower(root.get(Recipe_.author).get(User_.username)),
-                        "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  case LIKE -> predicates
+                      .add(cb.like(cb.lower(root.get(Recipe_.author).get(User_.username)),
+                          "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            case RECIPE_NAME: {
+            case RECIPE_NAME -> {
               if (StringUtils.isNotBlank((String) searchFilter.getValue())) {
                 switch (searchFilter.getOperator()) {
-                  case LIKE:
-                    predicates.add(cb.like(cb.lower(root.get(Recipe_.name)),
-                        "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
-                }
-
-              }
-            }
-              break;
-
-            case RECIPE_DESCRIPTION: {
-              if (StringUtils.isNotBlank((String) searchFilter.getValue())) {
-                switch (searchFilter.getOperator()) {
-                  case LIKE:
-                    predicates.add(cb.like(cb.lower(root.get(Recipe_.description)),
-                        "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  case LIKE -> predicates.add(cb.like(cb.lower(root.get(Recipe_.name)),
+                      "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            case RECIPE_SERVINGS: {
+            case RECIPE_DESCRIPTION -> {
+              if (StringUtils.isNotBlank((String) searchFilter.getValue())) {
+                switch (searchFilter.getOperator()) {
+                  case LIKE -> predicates.add(cb.like(cb.lower(root.get(Recipe_.description)),
+                      "%" + searchFilter.getValue().toString().toLowerCase() + "%"));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
+                }
+              }
+            }
+
+            case RECIPE_SERVINGS -> {
               Number value = searchFilter.getValueAsNumber();
               if (value != null) {
                 switch (searchFilter.getOperator()) {
-                  case GTE:
-                    predicates.add(cb.ge(root.get(Recipe_.servings), value));
-                    break;
-                  case LTE:
-                    predicates.add(cb.le(root.get(Recipe_.servings), value));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  case GTE -> predicates.add(cb.ge(root.get(Recipe_.servings), value));
+                  case LTE -> predicates.add(cb.le(root.get(Recipe_.servings), value));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            case RECIPE_PREPARATION_TIME: {
+            case RECIPE_PREPARATION_TIME -> {
               Number value = searchFilter.getValueAsNumber();
               if (value != null) {
                 switch (searchFilter.getOperator()) {
-                  case GTE:
-                    predicates.add(cb.ge(root.get(Recipe_.preparationTime),
-                        searchFilter.getValueAsNumber().longValue()));
-                    break;
-
-                  case LTE:
-                    predicates.add(cb.le(root.get(Recipe_.preparationTime),
-                        searchFilter.getValueAsNumber().longValue()));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  case GTE -> predicates.add(cb.ge(root.get(Recipe_.preparationTime),
+                      searchFilter.getValueAsNumber().longValue()));
+                  case LTE -> predicates.add(cb.le(root.get(Recipe_.preparationTime),
+                      searchFilter.getValueAsNumber().longValue()));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            case RECIPE_COOKING_TIME: {
+            case RECIPE_COOKING_TIME -> {
               Number value = searchFilter.getValueAsNumber();
               if (value != null) {
                 switch (searchFilter.getOperator()) {
-                  case GTE:
-                    predicates.add(cb.ge(root.get(Recipe_.cookingTime),
-                        searchFilter.getValueAsNumber().longValue()));
-                    break;
-
-                  case LTE:
-                    predicates.add(cb.le(root.get(Recipe_.cookingTime),
-                        searchFilter.getValueAsNumber().longValue()));
-                    break;
-
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  case GTE -> predicates.add(cb.ge(root.get(Recipe_.cookingTime),
+                      searchFilter.getValueAsNumber().longValue()));
+                  case LTE -> predicates.add(cb.le(root.get(Recipe_.cookingTime),
+                      searchFilter.getValueAsNumber().longValue()));
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            case RECIPE_TAGS: {
+            case RECIPE_TAGS -> {
               List<RecipeTagEnum> listOfTagEnum = parseEnumList(searchFilter.getValues());
               switch (searchFilter.getOperator()) {
-                case ANY: {
+                case ANY -> {
                   SetJoin<Recipe, RecipeTagEnum> tags = root.join(Recipe_.tags, JoinType.INNER);
                   predicates.add(tags.in(listOfTagEnum));
                 }
-                  break;
 
-                case ALL: {
+                case ALL -> {
                   SetJoin<Recipe, RecipeTagEnum> tags = root.join(Recipe_.tags, JoinType.INNER);
                   query.groupBy(root.get(Recipe_.id));
                   query.having(cb.equal(root.get(Recipe_.id), listOfTagEnum.size()));
                   predicates.add(tags.in(listOfTagEnum));
                 }
-                  break;
 
-                default:
-                  throw new IllegalArgumentException(
-                      "Unexpected value: " + searchFilter.getOperator());
+                default -> throw new IllegalArgumentException(
+                    "Unexpected value: " + searchFilter.getOperator());
               }
             }
-              break;
 
-            case RECIPE_INGREDIENTS: {
+            case RECIPE_INGREDIENTS -> {
               switch (searchFilter.getOperator()) {
-                case ANY: {
+                case ANY -> {
                   ListJoin<Recipe, RecipeIngredient> recipeIngredients =
                       root.join(Recipe_.recipeIngredients, JoinType.INNER);
                   predicates.add(recipeIngredients.get(RecipeIngredient_.ingredient)
                       .get(Ingredient_.id).in(searchFilter.getValues()));
                 }
-                  break;
 
-                case ALL: {
+                case ALL -> {
                   // XXX BKE this version messes up the count query
                   // ListJoin<Recipe, RecipeIngredient> recipeIngredients = root
                   // .join(Recipe_.recipeIngredients, JoinType.INNER);
@@ -277,20 +233,17 @@ public class CriteriaRecipeRepositoryImpl implements RecipeCriteriaRepository {
                   subQuery.groupBy(subRoot.get(RecipeIngredient_.recipe).get(Recipe_.id));
                   predicates.add(root.get(Recipe_.id).in(subQuery));
                 }
-                  break;
 
-                default:
-                  throw new IllegalArgumentException(
-                      "Unexpected value: " + searchFilter.getOperator());
+                default -> throw new IllegalArgumentException(
+                    "Unexpected value: " + searchFilter.getOperator());
               }
             }
-              break;
 
-            case RECIPE_AVERAGE_RATING: {
+            case RECIPE_AVERAGE_RATING -> {
               Number value = searchFilter.getValueAsNumber();
               if (value != null) {
                 switch (searchFilter.getOperator()) {
-                  case GTE: {
+                  case GTE -> {
                     // XXX BKE this version messes up the count query
                     // ListJoin<Recipe, RecipeReview> recipeReviews = root
                     // .join(Recipe_.recipeReviews, JoinType.LEFT);
@@ -308,18 +261,15 @@ public class CriteriaRecipeRepositoryImpl implements RecipeCriteriaRepository {
                     subQuery.having(cb.ge(cb.avg(subRoot.get(Review_.rating)), value));
                     predicates.add(root.get(Recipe_.id).in(subQuery));
                   }
-                    break;
 
-                  default:
-                    throw new IllegalArgumentException(
-                        "Unexpected value: " + searchFilter.getOperator());
+                  default -> throw new IllegalArgumentException(
+                      "Unexpected value: " + searchFilter.getOperator());
                 }
               }
             }
-              break;
 
-            default:
-              throw new IllegalArgumentException("Unexpected value: " + searchFilter.getKey());
+            default -> throw new IllegalArgumentException(
+                "Unexpected value: " + searchFilter.getKey());
           }
         });
 
