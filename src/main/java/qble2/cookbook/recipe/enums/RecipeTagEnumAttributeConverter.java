@@ -1,6 +1,6 @@
 package qble2.cookbook.recipe.enums;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -20,7 +20,7 @@ public class RecipeTagEnumAttributeConverter implements AttributeConverter<Recip
     if (recipeTagStringInDatabase == null) {
       return null;
     }
-    return Stream.of(RecipeTagEnum.values())
+    return Arrays.stream(RecipeTagEnum.values())
         .filter(t -> t.getCode().equals(recipeTagStringInDatabase)).findFirst()
         .orElseThrow(IllegalArgumentException::new);
   }

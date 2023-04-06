@@ -1,11 +1,11 @@
 package qble2.cookbook.recipe.criteria;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -280,7 +280,7 @@ public class CriteriaRecipeRepositoryImpl implements RecipeCriteriaRepository {
   }
 
   private static List<RecipeTagEnum> parseEnumList(List<Object> tags) {
-    return Stream.of(RecipeTagEnum.values()).filter(t -> tags.contains(t.getCode())).toList();
+    return Arrays.stream(RecipeTagEnum.values()).filter(t -> tags.contains(t.getCode())).toList();
   }
 
 }

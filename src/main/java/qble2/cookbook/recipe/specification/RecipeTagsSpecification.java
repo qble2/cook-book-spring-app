@@ -1,7 +1,7 @@
 package qble2.cookbook.recipe.specification;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -59,7 +59,7 @@ public class RecipeTagsSpecification implements Specification<Recipe> {
   }
 
   private static List<RecipeTagEnum> convertToEnum(List<Object> tags) {
-    return Stream.of(RecipeTagEnum.values()).filter(t -> tags.contains(t.getCode())).toList();
+    return Arrays.stream(RecipeTagEnum.values()).filter(t -> tags.contains(t.getCode())).toList();
   }
 
 }

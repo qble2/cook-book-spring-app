@@ -1,7 +1,7 @@
 package qble2.cookbook.metadata;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
@@ -29,9 +29,9 @@ public class MetadataController {
 
   @GetMapping
   public ResponseEntity<MetadataDto> getMetadata() {
-    List<RecipeTagEnum> tags = Stream.of(RecipeTagEnum.values())
+    List<RecipeTagEnum> tags = Arrays.stream(RecipeTagEnum.values())
         .sorted((t1, t2) -> t1.toString().compareTo(t2.toString())).toList();
-    List<UnitOfMeasureEnum> unitOfMeasures = Stream.of(UnitOfMeasureEnum.values()).toList();
+    List<UnitOfMeasureEnum> unitOfMeasures = Arrays.stream(UnitOfMeasureEnum.values()).toList();
     List<IngredientDto> ingredients = this.ingredientService.getIngredients();
     MetadataDto availableIngredientsDto = MetadataDto.builder().availableTags(tags)
         .availableUnitOfMeasures(unitOfMeasures).availableIngredients(ingredients).build();
