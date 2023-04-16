@@ -1,5 +1,6 @@
 package qble2.cookbook.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,8 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import qble2.cookbook.exception.ResponseErrorDto;
 import qble2.cookbook.user.UserService;
 
@@ -82,9 +82,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      */
     // super.unsuccessfulAuthentication(request, response, exception);
 
-    ResponseErrorDto responseError = ResponseErrorDto.builder().status(HttpStatus.UNAUTHORIZED.value())
+    ResponseErrorDto responseError = ResponseErrorDto.builder()
+        .status(HttpStatus.UNAUTHORIZED.value())
         .message("Authentication failed") // exception.getMessage()) holds internal cause (ex:
-                                          // Resource not found)
+        // Resource not found)
         .path(request.getRequestURI()).build();
 
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);

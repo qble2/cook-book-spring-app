@@ -2,10 +2,12 @@ package qble2.cookbook.review;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import lombok.extern.slf4j.Slf4j;
 import qble2.cookbook.review.dto.ReviewDto;
 
 @RestController
@@ -83,7 +84,7 @@ public class ReviewController {
     Link selfLink = linkTo(
         methodOn(ReviewController.class).getReview(createdReviewDto.getAuthor().getUsername(),
             createdReviewDto.getRecipe().getId(), createdReviewDto.getAuthor().getId()))
-                .withSelfRel();
+        .withSelfRel();
     createdReviewDto.add(selfLink);
 
     log.info("Review has been successfully created by user {} for recipe {}", username, recipeId);

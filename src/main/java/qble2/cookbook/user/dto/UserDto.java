@@ -1,5 +1,8 @@
 package qble2.cookbook.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -7,12 +10,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.core.Relation;
-import org.springframework.validation.annotation.Validated;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -20,6 +17,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+import org.springframework.validation.annotation.Validated;
 import qble2.cookbook.recipe.dto.RecipeDto;
 import qble2.cookbook.review.dto.ReviewDto;
 import qble2.cookbook.role.dto.RoleDto;
@@ -39,9 +39,11 @@ import qble2.cookbook.validation.UniqueUserUsername;
 public class UserDto extends RepresentationModel<UserDto> {
 
   public interface OnCreateValidationGroup {
+
   }
 
   public interface OnUpdateValidationGroup {
+
   }
 
   @Null(groups = OnCreateValidationGroup.class, message = "{user.id.OnCreate.Null.message}")

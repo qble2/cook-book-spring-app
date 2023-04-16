@@ -1,42 +1,43 @@
 package qble2.cookbook.recipe.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 import qble2.cookbook.recipe.enums.RecipeSearchFilterKeyEnum;
 import qble2.cookbook.recipe.enums.RecipeSearchOperatorEnum;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
 @Data
 public class RecipeSearchFilter implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    @JsonProperty("key")
-    private RecipeSearchFilterKeyEnum key;
+  @JsonProperty("key")
+  private RecipeSearchFilterKeyEnum key;
 
-    @JsonProperty("operator")
-    private RecipeSearchOperatorEnum operator;
+  @JsonProperty("operator")
+  private RecipeSearchOperatorEnum operator;
 
-    @JsonProperty("value")
-    private Object value;
+  @JsonProperty("value")
+  private Object value;
 
-    @JsonProperty("values")
-    private List<Object> values;
+  @JsonProperty("values")
+  private List<Object> values;
 
-    // allow to safely receive int or double values
-    // entity field type will be the one used in the generated sql
-    public Number getValueAsNumber() {
-        if (value instanceof Integer valueAs)
-            return valueAs;
+  // allow to safely receive int or double values
+  // entity field type will be the one used in the generated sql
+  public Number getValueAsNumber() {
+      if (value instanceof Integer valueAs) {
+          return valueAs;
+      }
 
-        if (value instanceof Double valueAs)
-            return valueAs;
+      if (value instanceof Double valueAs) {
+          return valueAs;
+      }
 
-        return null;
-    }
+    return null;
+  }
 
 }

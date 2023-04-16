@@ -1,8 +1,8 @@
 package qble2.cookbook.recipe.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 import org.springframework.hateoas.server.core.Relation;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Relation(collectionRelation = "tags")
 public enum RecipeTagEnum {

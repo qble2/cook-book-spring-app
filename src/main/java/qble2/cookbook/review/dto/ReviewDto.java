@@ -1,15 +1,12 @@
 package qble2.cookbook.review.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.core.Relation;
-import org.springframework.validation.annotation.Validated;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -17,6 +14,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+import org.springframework.validation.annotation.Validated;
 import qble2.cookbook.recipe.dto.RecipeDto;
 import qble2.cookbook.user.dto.UserDto;
 
@@ -33,9 +33,11 @@ import qble2.cookbook.user.dto.UserDto;
 public class ReviewDto extends RepresentationModel<ReviewDto> {
 
   public interface OnCreateValidationGroup {
+
   }
 
   public interface OnUpdateValidationGroup {
+
   }
 
   // @Null(groups = OnCreateOrUpdateValidationGroup.class,

@@ -2,8 +2,8 @@ package qble2.cookbook.recipe.dtoprojection;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.springframework.hateoas.server.core.Relation;
 import lombok.Value;
+import org.springframework.hateoas.server.core.Relation;
 
 @Relation(collectionRelation = "recipes")
 @Value

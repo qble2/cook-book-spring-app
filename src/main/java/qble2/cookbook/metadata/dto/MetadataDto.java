@@ -1,16 +1,16 @@
 package qble2.cookbook.metadata.dto;
 
-import java.util.List;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.core.Relation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 import qble2.cookbook.ingredient.dto.IngredientDto;
 import qble2.cookbook.ingredient.model.UnitOfMeasureEnum;
 import qble2.cookbook.recipe.enums.RecipeTagEnum;

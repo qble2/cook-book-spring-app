@@ -2,6 +2,7 @@ package qble2.cookbook.ingredient;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
@@ -50,7 +51,9 @@ public interface IngredientMapper {
   @Mapping(target = "defaultUnitOfMeasure", source = "defaultUnitOfMeasure")
   Ingredient toEntity(IngredientDto source);
 
-  /**  **/
+  /**
+   *
+   **/
 
   @Named(value = "toIngredientDtoListFromRecipeIngredientEntityList")
   @IterableMapping(qualifiedByName = "toIngredientDtoFromRecipeIngredientEntity")

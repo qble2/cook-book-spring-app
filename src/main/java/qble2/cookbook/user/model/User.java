@@ -1,5 +1,6 @@
 package qble2.cookbook.user.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,9 +20,6 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -30,6 +28,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import qble2.cookbook.recipe.model.Recipe;
 import qble2.cookbook.review.model.Review;
 import qble2.cookbook.role.model.Role;
@@ -83,7 +83,7 @@ public class User {
       mappedBy = "author")
   @JsonManagedReference
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<Recipe> recipes = new ArrayList<>();
 
@@ -91,14 +91,14 @@ public class User {
   @JoinTable(name = "FAVORITE_RECIPE", joinColumns = @JoinColumn(name = "USER_ID"),
       inverseJoinColumns = @JoinColumn(name = "RECIPE_ID"))
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private Set<Recipe> favoriteRecipes = new HashSet<>();
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,
       mappedBy = "author")
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<Review> reviews = new ArrayList<>();
 

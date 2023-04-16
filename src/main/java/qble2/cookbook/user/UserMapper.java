@@ -2,6 +2,7 @@ package qble2.cookbook.user;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
@@ -81,7 +82,7 @@ public interface UserMapper {
   @Mapping(target = "firstName", source = "firstName")
   @Mapping(target = "lastName", source = "lastName")
   @Mapping(target = "email", source = "email")
-  // @Mapping(target = "roles", source = "roles", qualifiedByName = "toRoleDto")
+    // @Mapping(target = "roles", source = "roles", qualifiedByName = "toRoleDto")
   void updateUser(UserDto source, @MappingTarget User target);
 
 }

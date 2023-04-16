@@ -2,6 +2,7 @@ package qble2.cookbook.security;
 
 import java.util.Arrays;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import lombok.RequiredArgsConstructor;
 import qble2.cookbook.role.model.RoleEnum;
 import qble2.cookbook.user.UserService;
 
@@ -129,7 +129,7 @@ public class SecurityConfiguration {
    * XXX BKE There is no need to explicitly set the userDetailsService and passwordEncoder on the
    * AuthenticationManager. When userDetailsService and passwordEncoder are registered as beans, the
    * default AuthenticationManager created by Spring Security will pick them up.
-   *
+   * <p>
    * You can define custom authentication by exposing a custom UserDetailsService as a bean, simply
    * register a Bean that implements UserDetailsService interface
    */

@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import lombok.extern.slf4j.Slf4j;
 
 // only works for synchronous exceptions
 @ControllerAdvice
@@ -68,7 +68,7 @@ public class ExceptionsControllerAdvice {
       HttpServletRequest request, MethodArgumentNotValidException exception) {
     List<String> validationErrors = exception.getBindingResult().getFieldErrors().stream()
         .map(DefaultMessageSourceResolvable::getDefaultMessage) // received value: " +
-                                                                // error.getRejectedValue()
+        // error.getRejectedValue()
         .toList();
     return createErrorResponseEntity(request.getRequestURI(), HttpStatus.BAD_REQUEST,
         METHOD_ARGUMENT_NOT_VALID_MESSAGE, validationErrors);

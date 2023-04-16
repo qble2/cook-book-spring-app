@@ -2,6 +2,7 @@ package qble2.cookbook.recipe;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.UUID;
 import org.mapstruct.AfterMapping;
@@ -142,6 +143,7 @@ public interface RecipeMapper {
   void updateRecipe(RecipeDto source, @MappingTarget Recipe target);
 
   // TODO BKE deprecated?
+
   /**
    * <pre>
    * author is not mapped

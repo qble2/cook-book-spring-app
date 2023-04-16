@@ -2,6 +2,7 @@ package qble2.cookbook.review;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;

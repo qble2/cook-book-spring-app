@@ -25,9 +25,6 @@ import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,6 +33,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import qble2.cookbook.ingredient.model.Ingredient;
 import qble2.cookbook.ingredient.model.UnitOfMeasureEnum;
 import qble2.cookbook.recipe.enums.RecipeTagEnum;
@@ -96,7 +96,7 @@ public class Recipe {
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "authorId", nullable = false)
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   private User author;
 
   @ElementCollection(fetch = FetchType.LAZY)
@@ -105,7 +105,7 @@ public class Recipe {
   @OrderBy("ASC")
   // @Enumerated(EnumType.STRING) // using a AttributeConverter instead
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private Set<RecipeTagEnum> tags = new HashSet<>();
 
@@ -113,7 +113,7 @@ public class Recipe {
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true,
       mappedBy = "recipe")
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
@@ -122,26 +122,26 @@ public class Recipe {
   @CollectionTable(name = "RecipeInstruction") // Hibernate uses plural form by default
   @Column(name = "instruction") // Hibernate uses plural form by default
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<String> instructions = new ArrayList<>();
 
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true,
       mappedBy = "recipe")
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<Review> reviews = new ArrayList<>();
 
   @Lob
   @Basic(fetch = FetchType.LAZY)
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   private byte[] pictures;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "favoriteRecipes")
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private Set<User> favoritedBy = new HashSet<>();
 
@@ -199,7 +199,9 @@ public class Recipe {
   // return this;
   // }
 
-  /** Calculated Properties **/
+  /**
+   * Calculated Properties
+   **/
 
   // @Formula: custom calculation of a transient property on database level
   @Formula("select cast(avg(rev.rating) as decimal(4, 2))" + " from review rev"

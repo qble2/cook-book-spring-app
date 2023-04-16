@@ -1,15 +1,15 @@
 package qble2.cookbook.user.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import org.springframework.validation.annotation.Validated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Setter

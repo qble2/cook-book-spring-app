@@ -14,8 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,6 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import qble2.cookbook.recipe.model.RecipeIngredient;
 
 @Entity(name = "Ingredient")
@@ -57,7 +57,7 @@ public class Ingredient {
   // ManyToMany Recipe<->Ingredient relationship split into 2x relationships
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "ingredient")
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   @Builder.Default
   private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class Ingredient {
   @JoinColumn(name = "recipeId") // composite key part 1/2
   @JoinColumn(name = "ingredientId") // composite key part 1/2
   @ToString.Exclude // excluding lazily fetched associations from your toString() to avoid
-                    // additional query from hibernate
+  // additional query from hibernate
   private RecipeIngredient alternativeRecipeIngredient;
 
 }

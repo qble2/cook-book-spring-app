@@ -2,11 +2,13 @@ package qble2.cookbook.recipe;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import lombok.extern.slf4j.Slf4j;
 import qble2.cookbook.ingredient.dto.IngredientDto;
 import qble2.cookbook.recipe.dto.RecipeDto;
 import qble2.cookbook.recipe.dto.RecipesPageDto;
@@ -143,7 +144,9 @@ public class RecipeController {
     return ResponseEntity.ok().build();
   }
 
-  /** GET RECIPE PARTIAL INFO */
+  /**
+   * GET RECIPE PARTIAL INFO
+   */
 
   @GetMapping(path = "/{recipeId}/tags")
   public CollectionModel<RecipeTagEnum> getRecipeTags(
@@ -174,7 +177,9 @@ public class RecipeController {
     return CollectionModel.of(instructions, selfLink);
   }
 
-  /** UPDATE RECIPE PARTIAL INFO */
+  /**
+   * UPDATE RECIPE PARTIAL INFO
+   */
 
   @PutMapping(path = "/{recipeId}/tags", consumes = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
@@ -246,7 +251,9 @@ public class RecipeController {
     return ResponseEntity.ok().body(updatedRecipeDto);
   }
 
-  /** FAVORITE RECIPES */
+  /**
+   * FAVORITE RECIPES
+   */
 
   @GetMapping(path = "/users/{userId}/favorites")
   @PreAuthorize("#userId == authentication.principal.id or hasRole('ROLE_ADMIN')")
@@ -283,7 +290,9 @@ public class RecipeController {
     return ResponseEntity.ok().build();
   }
 
-  /** TODO BKE WIP */
+  /**
+   * TODO BKE WIP
+   */
 
   // TODO BKE keep? relevance? split? rename?
   @PutMapping(path = "/{recipeId}/partial", consumes = MediaType.APPLICATION_JSON_VALUE)

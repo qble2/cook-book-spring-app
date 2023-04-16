@@ -1,5 +1,7 @@
 package qble2.cookbook.recipe.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,11 +14,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.core.Relation;
-import org.springframework.validation.annotation.Validated;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,6 +21,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+import org.springframework.validation.annotation.Validated;
 import qble2.cookbook.ingredient.dto.IngredientDto;
 import qble2.cookbook.recipe.enums.RecipeTagEnum;
 import qble2.cookbook.review.dto.ReviewDto;
@@ -47,9 +47,11 @@ import qble2.cookbook.validation.UniqueRecipeName;
 public class RecipeDto extends RepresentationModel<RecipeDto> {
 
   public interface OnCreateValidationGroup {
+
   }
 
   public interface OnUpdateValidationGroup {
+
   }
 
   @Null(groups = OnCreateValidationGroup.class, message = "{recipe.id.OnCreate.Null.message}")
@@ -108,7 +110,9 @@ public class RecipeDto extends RepresentationModel<RecipeDto> {
   @JsonProperty("pictures")
   private byte[] pictures;
 
-  /** Calculated Properties **/
+  /**
+   * Calculated Properties
+   **/
 
   @JsonProperty("averageRating")
   private Double averageRating;

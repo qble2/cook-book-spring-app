@@ -1,9 +1,8 @@
 package qble2.cookbook.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.hateoas.RepresentationModel;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.hateoas.RepresentationModel;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Getter
