@@ -105,7 +105,9 @@ public class ExceptionsControllerAdvice {
         INTERNAL_SERVER_ERROR_MESSAGE, null);
   }
 
-  //
+  /////
+  /////
+  /////
 
   private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(HttpServletRequest request,
       HttpStatus httpStatus, Exception exception) {
@@ -115,15 +117,10 @@ public class ExceptionsControllerAdvice {
 
   private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(String requestUri,
       HttpStatus httpStatus, String message, List<String> details) {
-    // String requestUrl = request.getRequestURI();
-    // String queryString = request.getQueryString();
-    // if (queryString != null) {
-    // requestUrl = requestUrl + "?" + queryString;
-    // }
-
     ResponseErrorDto responseError =
         ResponseErrorDto.builder().status(httpStatus.value()).error(httpStatus.getReasonPhrase())
             .message(message).details(details).path(requestUri).build();
+
     return new ResponseEntity<>(responseError, httpStatus);
   }
 
