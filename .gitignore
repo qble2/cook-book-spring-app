@@ -70,6 +70,12 @@ replay_pid*
 ### Eclipse
 ###
 .settings/
+.dbeaver/
+
+###
+### IntelliJ
+###
+.idea/
 
 ###
 ### H2
