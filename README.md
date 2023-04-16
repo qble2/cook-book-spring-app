@@ -30,7 +30,7 @@ This API allows a user to:
 
 ## Built with:
 - Java 17
-- [Spring Boot 2.7.8](https://spring.io/projects/spring-boot)
+- [Spring Boot 2.7.10](https://spring.io/projects/spring-boot)
 - [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
 - [Java-JWT](https://github.com/auth0/java-jwt)
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
