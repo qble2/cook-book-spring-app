@@ -35,7 +35,7 @@ import qble2.cookbook.utils.TestUtils;
 @EnableAutoConfiguration(
     exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @ActiveProfiles("test")
-public class AuthControllerIntegrationTest {
+class AuthControllerIntegrationTest {
 
   @Autowired
   private MockMvc mockMvc;

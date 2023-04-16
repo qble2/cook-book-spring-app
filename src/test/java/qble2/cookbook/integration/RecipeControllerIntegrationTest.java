@@ -40,7 +40,7 @@ import qble2.cookbook.utils.TestUtils;
     exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // to use @BeforeAll in a non-static setup
-public class RecipeControllerIntegrationTest {
+class RecipeControllerIntegrationTest {
 
   @Autowired
   private MockMvc mockMvc;

@@ -122,7 +122,7 @@ public class ReviewController {
       @CurrentSecurityContext(expression = "authentication?.name") String username,
       @PathVariable(name = "recipeId", required = true) UUID recipeId,
       @PathVariable(name = "userId", required = true) UUID userId) {
-    this.reviewService.deleteRecipeRecipe(username, recipeId, userId);
+    this.reviewService.deleteRecipeRecipe(recipeId, userId);
     log.info("Review has been successfully deleted by user {} for recipe {}", username, recipeId);
 
     return ResponseEntity.ok().build();

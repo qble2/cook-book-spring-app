@@ -32,7 +32,7 @@ import qble2.cookbook.utils.TestUtils;
 @EnableAutoConfiguration(
     exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @ActiveProfiles("test")
-public class UserControllerIntegrationTest {
+class UserControllerIntegrationTest {
 
   @Autowired
   private MockMvc mockMvc;

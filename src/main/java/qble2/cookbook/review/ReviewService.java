@@ -80,7 +80,7 @@ public class ReviewService {
     return this.reviewMapper.toDto(review);
   }
 
-  public void deleteRecipeRecipe(String username, UUID recipeId, UUID userId) {
+  public void deleteRecipeRecipe(UUID recipeId, UUID userId) {
     Review review = getReviewAndCheckOwnershipOrThrow(recipeId, userId);
     this.recipeRepository.save(review.getRecipe().removeReview(review));
   }

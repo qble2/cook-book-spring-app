@@ -33,6 +33,7 @@ import qble2.cookbook.user.dto.UserDto;
 public class InitFakeDataConfiguration {
 
   private static final int RECIPES_COUNT = 20;
+  private static final Random RANDOM = new Random();
 
   @Bean
   @Profile("!test")
@@ -98,23 +99,21 @@ public class InitFakeDataConfiguration {
         }).toList();
 
         // add reviews to recipes
-        recipes.stream().forEach(recipe -> {
-          users.stream()
-              // a user cannot review his own recipe
-              .filter(user -> !user.getId().equals(recipe.getAuthor().getId())) //
-              .forEach(user -> {
-                ReviewDto reviewDto =
-                    ReviewDto.builder().rating(generateRandomInt(0, 5))
-                        .comment(String.format("review by user (%s) on recipe (%s)",
-                            user.getUsername(), recipe.getName()))
-                        .reviewDate(LocalDateTime.now()).build();
-                ReviewDto createdRecipeReview =
-                    reviewService.createReview(user.getUsername(), recipe.getId(), reviewDto);
-                log.info("Created review for recipe {} by user {}",
-                    createdRecipeReview.getRecipe().getName(),
-                    createdRecipeReview.getAuthor().getUsername());
-              });
-        });
+        recipes.stream().forEach(recipe -> users.stream()
+            // a user cannot review his own recipe
+            .filter(user -> !user.getId().equals(recipe.getAuthor().getId())) //
+            .forEach(user -> {
+              ReviewDto reviewDto =
+                  ReviewDto.builder().rating(generateRandomInt(0, 5))
+                      .comment(String.format("review by user (%s) on recipe (%s)",
+                          user.getUsername(), recipe.getName()))
+                      .reviewDate(LocalDateTime.now()).build();
+              ReviewDto createdRecipeReview =
+                  reviewService.createReview(user.getUsername(), recipe.getId(), reviewDto);
+              log.info("Created review for recipe {} by user {}",
+                  createdRecipeReview.getRecipe().getName(),
+                  createdRecipeReview.getAuthor().getUsername());
+            }));
       } catch (Exception e) {
         log.error("An error has occured", e);
       }
@@ -135,22 +134,19 @@ public class InitFakeDataConfiguration {
   }
 
   private int generateRandomInt(int origin, int bound) {
-    Random random = new Random();
-    return random.nextInt(origin, bound);
+    return RANDOM.nextInt(origin, bound);
   }
 
   private Long generateRandomLong(int origin, int bound) {
-    Random random = new Random();
-    return random.nextLong(origin, bound);
+    return RANDOM.nextLong(origin, bound);
   }
 
   private String generateRandomString() {
     int leftLimit = 97; // letter 'a'
     int rightLimit = 122; // letter 'z'
     int targetStringLength = 10;
-    Random random = new Random();
 
-    return random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
+    return RANDOM.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
         .toString();
   }
@@ -162,9 +158,8 @@ public class InitFakeDataConfiguration {
       List<T> mutableList = new ArrayList<>(collection);
       Collections.shuffle(mutableList); // can only shuffle mutable collections
 
-      IntStream.range(0, Math.min(count, collection.size() - 1)).forEach(counter -> {
-        result.add(mutableList.get(counter));
-      });
+      IntStream.range(0, Math.min(count, collection.size() - 1))
+          .forEach(counter -> result.add(mutableList.get(counter)));
     }
 
     return result;
